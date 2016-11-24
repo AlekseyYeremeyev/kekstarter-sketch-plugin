@@ -1,0 +1,23 @@
+{
+  "author" : "Aleksey Yeremeyev",
+  "commands" : [
+    {
+      "script" : "kekstarter.js",
+      "handler" : "onRun",
+      "shortcut" : "cmd e",
+      "name" : "Let's kek started!",
+      "identifier" : "kekstarter"
+    }
+  ],
+  "menu" : {
+    "isRoot": true,
+    "items" : [
+      "kekstarter"
+    ]
+  },
+  "identifier" : "com.AleksYeremeyev.sketch.kekstarter",
+  "version" : "1.0",
+  "description" : "",
+  "authorEmail" : "aleks.yeremeyev@flatstack.com",
+  "name" : "kekstarter"
+}
