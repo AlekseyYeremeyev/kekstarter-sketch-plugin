@@ -1,7 +1,12 @@
 @import 'helpers.js';
 @import 'request.js';
+@import 'dialog.js';
+@import 'projects.js';
+
 
 function onRun(context) {
+  new Dialog().setup();
+
   var document = context.document;
 
   var page = findPageByName('_components');
@@ -12,7 +17,7 @@ function onRun(context) {
     var artboardName = artboard.name();
     var artboardNameJson= artboardName.toLowerCase();
     result[artboardNameJson] = {};
-    
+
     var groups = findByType(artboard, 'MSLayerGroup');
 
     groups.forEach(function(group) {
@@ -22,7 +27,6 @@ function onRun(context) {
 
       var symbols = findByType(group, 'MSSymbolInstance');
 
-      log(groupName);
 
       symbols.forEach(function(symbol) {
         var symbolName = symbol.name();
@@ -47,13 +51,13 @@ function onRun(context) {
           result[artboardNameJson][groupNameJson]['&:' + symbolNameJson] = resultStyles;
         }
       });
-      
+
     });
   });
 
   var json = JSON.stringify(result);
-
-  post('http://localhost:3000', json);
+  log("Generated JSON form Sketch Components:\n" + json);
+  // post('http://localhost:3000', json);
 
   // === === //
 
