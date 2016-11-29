@@ -8,7 +8,7 @@ function onRun(context) {
   new Dialog().setup();
 
   var document = context.document;
-
+  [doc showMessage:@"Exporting components..."];
   var page = findPageByName('_components');
   var artboards = page.artboards();
   var result = {};
@@ -56,7 +56,10 @@ function onRun(context) {
   });
 
   var json = JSON.stringify(result);
+
   log("Generated JSON form Sketch Components:\n" + json);
+
+  [doc showMessage:@"Components exported successfully!"];
   // post('http://localhost:3000', json);
 
   // === === //

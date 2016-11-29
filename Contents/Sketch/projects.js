@@ -1,9 +1,10 @@
 // var projects = [];
 
-var url = [NSURL URLWithString:"http://localhost:3000/projects/"];
+var url = [NSURL URLWithString:"http://kekstarter.herokuapp.com/projects"];
 
-var request=[NSMutableURLRequest requestWithURL:url cachePolicy:NSURLRequestReloadIgnoringCacheData timeoutInterval:30]
-[request setHTTPMethod:"GET"]
+var request = [NSMutableURLRequest requestWithURL:url cachePolicy:NSURLRequestReloadIgnoringCacheData timeoutInterval:30]
+
+request.setHTTPMethod('GET');
 
 var response = nil;
 var error = nil;
