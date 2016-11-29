@@ -17,11 +17,11 @@ if (error == nil && data != nil) {
 
   var projects = [];
 
-  for (var i = 0; i < res.count(); i++) {
-    var project = res[i]
+  for (var i = 0; i < res.projects.count(); i++) {
+    var project = res.projects[i];
     projects.push({
-        title: project.id+ " - " + project.title,
-        id: project.id
+      title: project.name,
+      id: project._id
     })
   }
 } else {
