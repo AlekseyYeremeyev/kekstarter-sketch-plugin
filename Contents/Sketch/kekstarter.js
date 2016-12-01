@@ -1,18 +1,27 @@
+var appUrl = "http://kekstarter.herokuapp.com";
+var projectJSON;
+
 @import 'helpers.js';
 @import 'request.js';
+@import 'dialog.js';
+@import 'projects.js';
+
 
 function onRun(context) {
   var document = context.document;
-
   var page = findPageByName('_components');
   var artboards = page.artboards();
   var result = {};
 
+  new Dialog().setup();
+
+
   artboards.forEach(function(artboard) {
     var artboardName = artboard.name();
+    document.showMessage("Exporting component:" + artboardName);
     var artboardNameJson= artboardName.toLowerCase();
     result[artboardNameJson] = {};
-    
+
     var groups = findByType(artboard, 'MSLayerGroup');
 
     groups.forEach(function(group) {
@@ -22,7 +31,6 @@ function onRun(context) {
 
       var symbols = findByType(group, 'MSSymbolInstance');
 
-      log(groupName);
 
       symbols.forEach(function(symbol) {
         var symbolName = symbol.name();
@@ -47,13 +55,16 @@ function onRun(context) {
           result[artboardNameJson][groupNameJson]['&:' + symbolNameJson] = resultStyles;
         }
       });
-      
+
     });
   });
 
-  var json = JSON.stringify(result);
+  projectJSON = JSON.stringify({data: result});
 
-  post('http://localhost:3000', json);
+  log("Generated JSON form Sketch Components:\n" + projectJSON);
+
+  document.showMessage("Components exported successfully!");
+  post(appUrl + "/projects/583eb58252be9900110aa89c", projectJSON);
 
   // === === //
 
