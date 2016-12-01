@@ -1,6 +1,5 @@
 // var projects = [];
-
-var url = [NSURL URLWithString:"http://kekstarter.herokuapp.com/projects"];
+var url = NSURL.URLWithString(appUrl + "/projects");
 
 var request = [NSMutableURLRequest requestWithURL:url cachePolicy:NSURLRequestReloadIgnoringCacheData timeoutInterval:30]
 
@@ -25,7 +24,7 @@ if (error == nil && data != nil) {
     })
   }
 } else {
-  [doc showMessage:@"Server is unavailable"];
+  document.showMessage("Can't connect to projects server.");
 }
 
 

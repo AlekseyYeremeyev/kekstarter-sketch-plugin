@@ -4,11 +4,12 @@ function post(endpoint, payload) {
 
   var args = NSArray.arrayWithObjects(
     '-v',
-    '-X', 'POST',
-    '--header', 'User-Agent: Sketch',
-    'Content-Disposition: form-data; name=artboardfile; Content-Type=application/json;',
-    '-d', '',
-    endpoint + '/upload/sketch', nil);
+    '-X', 'PATCH',
+    '--header', 'Content-Type:application/json',
+    '--header', 'Accept: application/json',
+    '-d',
+    payload,
+    endpoint);
 
   task.setArguments(args);
 
@@ -22,6 +23,4 @@ function post(endpoint, payload) {
     initWithData: outputData,
     encoding: NSUTF8StringEncoding
   });
-
-  return JSON.parse(outputString);
 }

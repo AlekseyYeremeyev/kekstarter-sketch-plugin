@@ -1,3 +1,6 @@
+var appUrl = "http://kekstarter.herokuapp.com";
+var projectJSON;
+
 @import 'helpers.js';
 @import 'request.js';
 @import 'dialog.js';
@@ -5,16 +8,17 @@
 
 
 function onRun(context) {
-  new Dialog().setup();
-
   var document = context.document;
-  [doc showMessage:@"Exporting components..."];
   var page = findPageByName('_components');
   var artboards = page.artboards();
   var result = {};
 
+  new Dialog().setup();
+
+
   artboards.forEach(function(artboard) {
     var artboardName = artboard.name();
+    document.showMessage("Exporting component:" + artboardName);
     var artboardNameJson= artboardName.toLowerCase();
     result[artboardNameJson] = {};
 
@@ -55,12 +59,12 @@ function onRun(context) {
     });
   });
 
-  var json = JSON.stringify(result);
+  projectJSON = JSON.stringify({data: result});
 
-  log("Generated JSON form Sketch Components:\n" + json);
+  log("Generated JSON form Sketch Components:\n" + projectJSON);
 
-  [doc showMessage:@"Components exported successfully!"];
-  // post('http://localhost:3000', json);
+  document.showMessage("Components exported successfully!");
+  post(appUrl + "/projects/583eb58252be9900110aa89c", projectJSON);
 
   // === === //
 

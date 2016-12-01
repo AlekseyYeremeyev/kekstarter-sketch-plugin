@@ -9,6 +9,14 @@ Dialog.prototype = {
       message = projects[i].name;
     }
   },
+  
+  runModal: function () {
+    log("Generated JSON form Sketch Components:\n" + projectJSON);
+
+    document.showMessage("Components exported successfully!");
+    post(appUrl + "/projects/583eb58252be9900110aa89c", projectJSON);
+  },
+
   new: function() {
     var alertBox = COSAlertWindow.new();
     var selectBox = NSPopUpButton.alloc().initWithFrame(NSMakeRect(0, 0, 200, 25));
